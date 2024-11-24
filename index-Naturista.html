@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test de Inteligencias Múltiples - Naturalista</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #a8c0ff, #f0f8ff);
+            color: #333333; /* Cambié el color de la letra para mayor contraste */
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            margin: 20px auto;
+            padding: 20px;
+            width: 90%;
+            max-width: 600px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .progress-bar {
+            background-color: #b0e0e6;
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress-bar div {
+            height: 20px;
+            background-color: #00bfff;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .question {
+            margin: 20px 0;
+            padding: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .options button {
+            margin: 5px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #00bfff;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .options button:hover {
+            background-color: #0077b6;
+        }
+
+        #finish-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #b0e0e6;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #finish-btn:hover {
+            background-color: #00bfff;
+        }
+
+        #question-number {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        .intro-text {
+            font-size: 16px;
+            color: #333333;
+            margin: 10px 0;
+        }
+
+        .credits {
+            font-size: 14px;
+            color: #555555;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Test de Inteligencias Múltiples</h1>
+        <h2>Inteligencia Naturalista</h2>
+        
+        <!-- Texto Introductorio -->
+        <p class="intro-text">Este test es solo una simulación, no es real, solo es para entretención.</p>
+        
+        <!-- Créditos -->
+        <p class="credits">Este test fue realizado por Rataslow.</p>
+        
+        <div class="progress-bar">
+            <div id="progress"></div>
+        </div>
+
+        <div id="quiz">
+            <!-- Pregunta 1 -->
+            <div class="question" data-question="1">
+                <p>¿Qué actividad disfrutas más?</p>
+                <div class="options">
+                    <button onclick="nextQuestion(2)">Pasear al aire libre</button>
+                    <button onclick="nextQuestion(3)">Observar animales</button>
+                    <button onclick="nextQuestion(1)">Cuidar plantas</button>
+                    <button onclick="nextQuestion(0)">No me identifica ninguna</button>
+                    <button onclick="nextQuestion(2)">Me identifican las 3 alternativas</button>
+                </div>
+            </div>
+
+            <!-- Pregunta 2 -->
+            <div class="question" data-question="2" style="display: none;">
+                <p>¿Qué te interesa más aprender?</p>
+                <div class="options">
+                    <button onclick="nextQuestion(1)">Ecología</button>
+                    <button onclick="nextQuestion(3)">Meteorología</button>
+                    <button onclick="nextQuestion(2)">Botánica</button>
+                    <button onclick="nextQuestion(0)">No me identifica ninguna</button>
+                    <button onclick="nextQuestion(2)">Me identifican las 3 alternativas</button>
+                </div>
+            </div>
+
+            <!-- Pregunta 3 -->
+            <div class="question" data-question="3" style="display: none;">
+                <p>¿Qué tipo de entorno prefieres?</p>
+                <div class="options">
+                    <button onclick="nextQuestion(3)">Bosques</button>
+                    <button onclick="nextQuestion(2)">Playas</button>
+                    <button onclick="nextQuestion(1)">Montañas</button>
+                    <button onclick="nextQuestion(0)">No me identifica ninguna</button>
+                    <button onclick="nextQuestion(2)">Me identifican las 3 alternativas</button>
+                </div>
+            </div>
+
+            <!-- Pregunta 4 -->
+            <div class="question" data-question="4" style="display: none;">
+                <p>¿Qué herramienta utilizas más?</p>
+                <div class="options">
+                    <button onclick="nextQuestion(2)">Binoculares</button>
+                    <button onclick="nextQuestion(3)">Microscopio</button>
+                    <button onclick="nextQuestion(1)">Cámara de fotos</button>
+                    <button onclick="nextQuestion(0)">No me identifica ninguna</button>
+                    <button onclick="nextQuestion(2)">Me identifican las 3 alternativas</button>
+                </div>
+            </div>
+
+            <!-- Pregunta 5 -->
+            <div class="question" data-question="5" style="display: none;">
+                <p>¿Qué profesión te parece más atractiva?</p>
+                <div class="options">
+                    <button onclick="nextQuestion(3)">Veterinario</button>
+                    <button onclick="nextQuestion(1)">Biólogo</button>
+                    <button onclick="nextQuestion(2)">Guardaparque</button>
+                    <button onclick="nextQuestion(0)">No me identifica ninguna</button>
+                    <button onclick="nextQuestion(2)">Me identifican las 3 alternativas</button>
+                </div>
+            </div>
+        </div>
+
+        <p id="question-number">Pregunta 1 de 5</p>
+        <button id="finish-btn" onclick="finishTest()" style="display: none;">Terminar Test</button>
+    </div>
+
+    <script>
+        let currentQuestion = 1;
+        const totalQuestions = 5;
+        const scores = []; // Almacena los valores seleccionados
+
+        function nextQuestion(score) {
+            const progress = document.getElementById("progress");
+            const currentElement = document.querySelector(`.question[data-question="${currentQuestion}"]`);
+            const nextElement = document.querySelector(`.question[data-question="${currentQuestion + 1}"]`);
+
+            // Guardar el puntaje de la respuesta seleccionada
+            scores.push(score);
+
+            currentElement.style.display = "none";
+            if (nextElement) {
+                nextElement.style.display = "block";
+            }
+
+            currentQuestion++;
+            progress.style.width = `${(currentQuestion / totalQuestions) * 100}%`;
+            document.getElementById("question-number").textContent = `Pregunta ${currentQuestion} de ${totalQuestions}`;
+
+            if (currentQuestion > totalQuestions) {
+                document.getElementById("finish-btn").style.display = "block";
+            }
+        }
+
+        function finishTest() {
+    const averageScore = scores.reduce((a, b) => a + b, 0) / scores.length;
+    alert(`¡Gracias por completar el test! Tu puntaje promedio es: ${averageScore.toFixed(2)}`);
+
+    // Almacenar puntaje del test naturalista en localStorage
+    localStorage.setItem('naturalista', JSON.stringify(scores));
+
+    // Recuperar todos los puntajes de los tests desde localStorage
+    const linguisticScore = JSON.parse(localStorage.getItem('linguistica')) || [];
+    const musicalScore = JSON.parse(localStorage.getItem('musical')) || [];
+    const logicalMathematicalScore = JSON.parse(localStorage.getItem('logicoMatematico')) || [];
+    const intrapersonalScore = JSON.parse(localStorage.getItem('intrapersonal')) || [];
+    const interpersonalScore = JSON.parse(localStorage.getItem('interpersonal')) || [];
+    const corporalScore = JSON.parse(localStorage.getItem('corporal')) || [];
+    const naturalistaScore = JSON.parse(localStorage.getItem('naturalista')) || [];
+    const spatialScore = JSON.parse(localStorage.getItem('espacial')) || []; // Agregado para la inteligencia espacial
+
+    // Calcular los promedios de todas las inteligencias
+    const linguisticAvg = calculateAverageScore(linguisticScore);
+    const musicalAvg = calculateAverageScore(musicalScore);
+    const logicalMathematicalAvg = calculateAverageScore(logicalMathematicalScore);
+    const intrapersonalAvg = calculateAverageScore(intrapersonalScore);
+    const interpersonalAvg = calculateAverageScore(interpersonalScore);
+    const corporalAvg = calculateAverageScore(corporalScore);
+    const naturalistaAvg = calculateAverageScore(naturalistaScore);
+    const spatialAvg = calculateAverageScore(spatialScore); // Calcular promedio espacial
+
+    // Almacenar los promedios en un objeto
+    const averages = {
+        'Lingüística': linguisticAvg,
+        'Musical': musicalAvg,
+        'Lógico-Matemática': logicalMathematicalAvg,
+        'Intrapersonal': intrapersonalAvg,
+        'Interpersonal': interpersonalAvg,
+        'Corporal': corporalAvg,
+        'Naturalista': naturalistaAvg,
+        'Espacial': spatialAvg // Agregado a los promedios
+    };
+
+    // Encontrar la inteligencia más representativa
+    let maxAvg = 0;
+    let mostRepresentedIntelligence = '';
+    for (const intelligence in averages) {
+        if (averages[intelligence] > maxAvg) {
+            maxAvg = averages[intelligence];
+            mostRepresentedIntelligence = intelligence;
+        }
+    }
+
+    // Consejo de salud relacionado con la inteligencia más representativa
+    let healthTip = '';
+    switch (mostRepresentedIntelligence) {
+        case 'Lingüística':
+    healthTip = "Practica leer y escribir todos los días para mantener tu mente ágil. \n\nAl mejorar tu habilidad para expresar ideas con claridad, no solo fortalecerás tu capacidad comunicativa, sino que también fomentarás una mayor conexión emocional con los demás. \n\nEscribir en un diario o leer libros sobre diversos temas también puede mejorar tu comprensión y ampliar tus conocimientos. \n\nSe recomienda visitar bibliotecas, cafés tranquilos o centros culturales para sumergirse en un ambiente lleno de estímulos lingüísticos. \n\nRodéate de personas que disfruten de la literatura, la poesía o el debate, y que te animen a compartir tus ideas y opiniones. \n\nLos hábitos de leer y escribir habitualmente, además de participar en discusiones y talleres literarios, pueden estimular aún más tu inteligencia lingüística. \n\nLas inteligencias más compatibles con la lingüística son la intrapersonal y la interpersonal, ya que ambas fomentan la reflexión personal y la comunicación efectiva.";
+    break;
+case 'Musical':
+    healthTip = "Escuchar música o aprender a tocar un instrumento mejora la salud cerebral y emocional, ya que activa diferentes áreas del cerebro. \n\nLa música tiene el poder de reducir el estrés, mejorar el estado de ánimo y ayudar a la memoria. \n\nTocar un instrumento, por ejemplo, te permite mejorar la coordinación entre tus manos y ojos, así como potenciar tu creatividad y concentración. \n\nSe recomienda asistir a conciertos, estudios de grabación o unirte a grupos musicales donde puedas practicar y compartir experiencias. \n\nRodéate de personas que aprecien la música, ya sean músicos o simplemente aficionados, para que puedas nutrirte de nuevas ideas. \n\nLos hábitos como escuchar música de diversos géneros, practicar un instrumento a diario o componer tus propias melodías estimularán tu inteligencia musical. \n\nLas inteligencias más compatibles son la lógico-matemática, ya que ambas requieren de un enfoque estructurado y de atención a los detalles.";
+    break;
+case 'Lógico-Matemática':
+    healthTip = "Realizar rompecabezas o actividades matemáticas mantiene tu mente afilada y reduce el estrés, al mismo tiempo que fomenta el pensamiento crítico y la resolución de problemas. \n\nA través de juegos de lógica y análisis de patrones, puedes mejorar tus habilidades para tomar decisiones rápidas y efectivas. \n\nEstas actividades no solo ejercitan tu cerebro, sino que también mejoran tu capacidad de atención y concentración. \n\nVisita museos de ciencia, planetarios o centros de investigación donde puedas experimentar de primera mano con problemas complejos. \n\nRodéate de personas que disfruten de desafíos intelectuales, como científicos, ingenieros o matemáticos. \n\nLos hábitos como resolver acertijos matemáticos, leer sobre avances científicos y participar en competencias intelectuales estimularán tu inteligencia lógico-matemática. \n\nLas inteligencias más compatibles son la espacial y la lingüística, ya que ambas requieren habilidades de análisis y resolución de problemas.";
+    break;
+case 'Intrapersonal':
+    healthTip = "Dedica tiempo a la meditación o la reflexión personal para mejorar tu bienestar emocional. \n\nLa autoobservación y la introspección te permiten conocer tus pensamientos y emociones más profundamente, lo cual te ayudará a tomar decisiones más equilibradas y a manejar el estrés de manera más efectiva. \n\nEstablecer metas personales y realizar prácticas de mindfulness también puede incrementar tu bienestar general y promover una mayor resiliencia ante los desafíos de la vida. \n\nLugares como centros de retiro espiritual, parques tranquilos o simplemente un espacio privado en tu hogar pueden ser ideales para practicar la reflexión. \n\nRodéate de personas que valoren la introspección y el crecimiento personal, como terapeutas o mentores. \n\nLos hábitos de meditar, reflexionar sobre tus emociones y llevar un diario personal estimularán tu inteligencia intrapersonal. \n\nLas inteligencias más compatibles son la interpersonal, ya que ambas requieren un alto nivel de autoconocimiento y empatía hacia los demás.";
+    break;
+case 'Interpersonal':
+    healthTip = "Mantén relaciones saludables, las interacciones sociales positivas son esenciales para tu salud mental. \n\nLa empatía, la comunicación efectiva y la colaboración son habilidades clave para fortalecer tus vínculos con los demás. \n\nPasar tiempo de calidad con amigos y familiares, escuchar activamente y compartir tus emociones puede aumentar tu sentido de pertenencia, lo cual es fundamental para una vida equilibrada y feliz. \n\nSe recomienda asistir a eventos sociales, grupos de voluntariado o reuniones familiares donde puedas conectar con otros. \n\nRodéate de personas sociables y empáticas que te ayuden a desarrollar habilidades de comunicación. \n\nLos hábitos de practicar la escucha activa, participar en debates y colaborar en proyectos grupales estimularán tu inteligencia interpersonal. \n\nLas inteligencias más compatibles son la lingüística y la intrapersonal, ya que ambas se enfocan en la comprensión y gestión de las relaciones y emociones.";
+    break;
+case 'Corporal':
+    healthTip = "Realiza ejercicio físico regularmente para mantener tu cuerpo en óptimas condiciones. \n\nEl ejercicio no solo mejora la fuerza y resistencia física, sino que también tiene beneficios a nivel psicológico, como la liberación de endorfinas, las cuales elevan el ánimo y reducen el estrés. \n\nIncorporar actividades como caminar, correr, nadar o practicar yoga en tu rutina diaria no solo mejorará tu salud física, sino que también contribuirá a una mayor claridad mental y bienestar emocional. \n\nLugares como gimnasios, centros de yoga o espacios al aire libre son ideales para realizar actividad física. \n\nRodéate de personas que practiquen deporte y tengan un estilo de vida activo. \n\nLos hábitos de hacer ejercicio regularmente, practicar deportes en grupo o llevar una rutina de estiramientos pueden estimular tu inteligencia corporal. \n\nLas inteligencias más compatibles son la musical, ya que ambas dependen de la coordinación y el ritmo, y la lógico-matemática, por la estructura y disciplina que requiere el cuerpo.";
+    break;
+case 'Naturalista':
+    healthTip = "Pasar tiempo al aire libre y conectarte con la naturaleza tiene beneficios para tu salud física y emocional. \n\nLa exposición al entorno natural puede reducir el estrés, aumentar la creatividad y mejorar el estado de ánimo. \n\nRealizar caminatas por el campo, visitar parques o simplemente respirar aire fresco en un jardín puede ayudarte a restaurar tu energía y fomentar una mayor sensación de calma y equilibrio interno. \n\nLugares como reservas naturales, zoológicos, jardines botánicos o áreas rurales son perfectos para sumergirse en la naturaleza. \n\nRodéate de personas que compartan tu amor por el medio ambiente, como ecologistas o biólogos. \n\nLos hábitos como caminar al aire libre, practicar senderismo o realizar actividades de conservación del medio ambiente estimularán tu inteligencia naturalista. \n\nLas inteligencias más compatibles son la intrapersonal y la espacial, ya que ambas requieren un entendimiento profundo del entorno y la capacidad de observar patrones en la naturaleza.";
+    break;
+case 'Espacial': // Consejo de salud para inteligencia espacial
+    healthTip = "Mejorar tu percepción espacial realizando actividades como el dibujo, la resolución de puzzles tridimensionales o incluso la navegación por mapas puede potenciar tu creatividad y habilidades cognitivas. \n\nEstas actividades estimulan tu capacidad para visualizar y manipular objetos en el espacio, lo que te ayudará no solo en la resolución de problemas complejos, sino también en el desarrollo de habilidades de planificación y organización en tu vida diaria. \n\nVisita museos de arte, exposiciones de arquitectura o lugares históricos con mapas interactivos para estimular tu percepción espacial. \n\nRodéate de personas creativas, como artistas, arquitectos o diseñadores, que te puedan ofrecer nuevas perspectivas y enfoques. \n\nLos hábitos de dibujar, jugar con rompecabezas 3D o practicar deportes como el ajedrez o la orientación estimularán tu inteligencia espacial. \n\nLas inteligencias más compatibles son la lógico-matemática y la corporal, ya que ambas se basan en la resolución estructurada de problemas y la acción en el espacio físico.";
+    break;
+
+    }
+
+    // Mostrar el PDF con los resultados y el consejo de salud
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    doc.setFont("helvetica");
+    doc.setFontSize(14);
+
+    // Cabecera
+    doc.setTextColor(0, 0, 0);  // Color negro para el texto
+    doc.text("Resultados del Test de Inteligencias Múltiples", 20, 20);
+    doc.setLineWidth(0.5);
+    doc.line(20, 22, 190, 22);  // Línea separadora debajo del título
+
+    // Puntajes de las inteligencias
+    doc.setFontSize(12);
+    doc.text(`1. Inteligencia Lingüística: ${linguisticAvg}`, 20, 30);
+    doc.text(`2. Inteligencia Musical: ${musicalAvg}`, 20, 40);
+    doc.text(`3. Inteligencia Lógico-Matemática: ${logicalMathematicalAvg}`, 20, 50);
+    doc.text(`4. Inteligencia Intrapersonal: ${intrapersonalAvg}`, 20, 60);
+    doc.text(`5. Inteligencia Interpersonal: ${interpersonalAvg}`, 20, 70);
+    doc.text(`6. Inteligencia Corporal: ${corporalAvg}`, 20, 80);
+    doc.text(`7. Inteligencia Naturalista: ${naturalistaAvg}`, 20, 90);
+    doc.text(`8. Inteligencia Espacial: ${spatialAvg}`, 20, 100); // Agregado a los puntajes
+
+    // Línea separadora
+    doc.setLineWidth(0.5);
+    doc.line(20, 110, 190, 110);  // Dibujar la línea horizontal
+
+    // Consejo de salud
+    doc.setFontSize(12);
+    doc.text(`\nLa inteligencia más representativa es: ${mostRepresentedIntelligence}`, 20, 120);
+    doc.text(`\nConsejo de salud:`, 20, 130);
+    doc.setFontSize(12);
+    doc.setTextColor(0, 0, 0);  // Color negro para el consejo
+    doc.text(healthTip, 20, 140, { maxWidth: 170 });
+
+    // Descargar el PDF
+    doc.save("resultados_test_inteligencias_multiples.pdf");
+}
+
+function calculateAverageScore(scores) {
+    return scores.length > 0 ? (scores.reduce((a, b) => a + b, 0) / scores.length).toFixed(2) : 0;
+}
+
+
+    </script>
+</body>
+</html>

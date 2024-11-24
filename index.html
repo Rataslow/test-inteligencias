@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test de Inteligencias Múltiples</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #6a0dad, #9400d3);
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            margin: 20px auto;
+            padding: 20px;
+            width: 90%;
+            max-width: 600px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .progress-bar {
+            background-color: #4b0082;
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress-bar div {
+            height: 20px;
+            background-color: #dda0dd;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .question {
+            margin: 20px 0;
+            padding: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .options button {
+            margin: 5px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #8a2be2;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .options button:hover {
+            background-color: #ba55d3;
+        }
+
+        #finish-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #9932cc;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #finish-btn:hover {
+            background-color: #bf3eff;
+        }
+
+        h2 {
+            font-size: 1.5em;
+            margin-top: 10px;
+            color: #ddd;
+        }
+
+        .intro {
+            margin-bottom: 20px;
+            font-size: 1em;
+            color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Test de Inteligencias Múltiples</h1>
+        <div class="intro">
+            <p>Este test es solo una simulación, no es real, solo es para entretención.</p>
+            <p><strong>Este test fue realizado por Rataslow.</strong></p>
+        </div>
+        <h2>Inteligencia Lingüística</h2>
+        <div class="progress-bar">
+            <div id="progress"></div>
+        </div>
+
+        <div id="quiz">
+            <div class="question" data-question="1">
+                <p>¿Qué actividad disfrutas más?</p>
+                <div class="options">
+                    <button onclick="nextQuestion(2)">Escribir un diario</button>
+                    <button onclick="nextQuestion(0)">Jugar videojuegos</button> <!-- Opción no relacionada -->
+                    <button onclick="nextQuestion(3)">Escuchar cuentos</button>
+                    <button onclick="nextQuestion(0)">No me identifica ninguna</button>
+                    <button onclick="nextQuestion(2)">Me identifican las 3 alternativas</button> <!-- 2 puntos -->
+                </div>
+            </div>
+            <div class="question" data-question="2" style="display: none;">
+                <p>¿Qué tipo de contenido prefieres crear?</p>
+                <div class="options">
+                    <button onclick="nextQuestion(3)">Narraciones</button>
+                    <button onclick="nextQuestion(0)">Entrenamientos físicos</button> <!-- Opción no relacionada -->
+                    <button onclick="nextQuestion(2)">Canciones</button>
+                    <button onclick="nextQuestion(0)">No me identifica ninguna</button>
+                    <button onclick="nextQuestion(2)">Me identifican las 3 alternativas</button> <!-- 2 puntos -->
+                </div>
+            </div>
+            <div class="question" data-question="3" style="display: none;">
+                <p>¿Qué herramienta usas más en tu vida diaria?</p>
+                <div class="options">
+                    <button onclick="nextQuestion(2)">Auriculares para audiolibros</button>
+                    <button onclick="nextQuestion(1)">Libros electrónicos</button>
+                    <button onclick="nextQuestion(0)">Báscula de cocina</button> <!-- Opción no relacionada -->
+                    <button onclick="nextQuestion(0)">No me identifica ninguna</button>
+                    <button onclick="nextQuestion(2)">Me identifican las 3 alternativas</button> <!-- 2 puntos -->
+                </div>
+            </div>
+            <div class="question" data-question="4" style="display: none;">
+                <p>¿Cómo prefieres aprender algo nuevo?</p>
+                <div class="options">
+                    <button onclick="nextQuestion(3)">Participando en debates</button>
+                    <button onclick="nextQuestion(1)">Leyendo manuales</button>
+                    <button onclick="nextQuestion(0)">Haciendo jardinería</button> <!-- Opción no relacionada -->
+                    <button onclick="nextQuestion(0)">No me identifica ninguna</button>
+                    <button onclick="nextQuestion(2)">Me identifican las 3 alternativas</button> <!-- 2 puntos -->
+                </div>
+            </div>
+            <div class="question" data-question="5" style="display: none;">
+                <p>¿Qué te resulta más interesante?</p>
+                <div class="options">
+                    <button onclick="nextQuestion(1)">Analizar textos</button>
+                    <button onclick="nextQuestion(3)">Escribir relatos</button>
+                    <button onclick="nextQuestion(0)">Observar aves</button> <!-- Opción no relacionada -->
+                    <button onclick="nextQuestion(0)">No me identifica ninguna</button>
+                    <button onclick="nextQuestion(2)">Me identifican las 3 alternativas</button> <!-- 2 puntos -->
+                </div>
+            </div>
+        </div>
+
+        <button id="finish-btn" onclick="finishTest()" style="display: none;">Terminar Test</button>
+    </div>
+
+    <script>
+        let currentQuestion = 1;
+        const totalQuestions = 5;
+        const scores = []; // Almacena los valores seleccionados
+
+        function nextQuestion(score) {
+            const progress = document.getElementById("progress");
+            const currentElement = document.querySelector(`.question[data-question="${currentQuestion}"]`);
+            const nextElement = document.querySelector(`.question[data-question="${currentQuestion + 1}"]`);
+
+            // Guardar el puntaje de la respuesta seleccionada
+            scores.push(score);
+
+            currentElement.style.display = "none";
+            if (nextElement) {
+                nextElement.style.display = "block";
+            }
+
+            currentQuestion++;
+            progress.style.width = `${(currentQuestion / totalQuestions) * 100}%`;
+
+            if (currentQuestion > totalQuestions) {
+                document.getElementById("finish-btn").style.display = "block";
+            }
+        }
+
+        function finishTest() {
+            // Calcular el puntaje promedio
+            const averageScore = scores.reduce((a, b) => a + b, 0) / scores.length;
+            alert(`¡Gracias por completar el test! Tu puntaje promedio es: ${averageScore.toFixed(2)}`);
+
+            // Almacenar puntaje de este test en localStorage bajo la clave específica 'linguisticScore'
+            localStorage.setItem('linguistica', JSON.stringify(scores));
+
+            // Redirigir al siguiente test (index-LM.html)
+            window.location.href = "index-LM.html"; // Cambia esto si es necesario
+        }
+    </script>
+</body>
+</html>

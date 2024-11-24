@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test de Inteligencias Múltiples - Intrapersonal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #dda0dd, #e6e6fa);
+            color: black; /* Color de texto negro para contraste */
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            margin: 20px auto;
+            padding: 20px;
+            width: 90%;
+            max-width: 600px;
+            background-color: rgba(255, 255, 255, 0.8); /* Fondo más claro para contraste */
+            border-radius: 10px;
+        }
+
+        .progress-bar {
+            background-color: #b0c4de;
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress-bar div {
+            height: 20px;
+            background-color: #9370db;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .question {
+            margin: 20px 0;
+            padding: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .options button {
+            margin: 5px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #8a2be2;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .options button:hover {
+            background-color: #7a3e98;
+        }
+
+        #finish-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #b0c4de;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #finish-btn:hover {
+            background-color: #9370db;
+        }
+
+        .intro {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .credits {
+            font-size: 14px;
+            color: #888;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="intro">
+            <p>Este test es solo una simulación, no es real, solo es para entretención.</p>
+        </div>
+        <h1>Test de Inteligencias Múltiples</h1>
+        <h2>Inteligencia Intrapersonal</h2>
+        <div class="progress-bar">
+            <div id="progress"></div>
+        </div>
+
+        <div id="quiz">
+            <!-- Pregunta 1 -->
+            <div class="question" data-question="1">
+                <p>¿Qué prefieres hacer en tu tiempo libre?</p>
+                <div class="options">
+                    <button onclick="nextQuestion(1)">Meditar</button>
+                    <button onclick="nextQuestion(2)">Reflexionar sobre tus metas</button>
+                    <button onclick="nextQuestion(0)">Ver una película de acción</button> <!-- Distractor -->
+                    <button onclick="nextQuestion(0)">No me identifica ninguna</button>
+                    <button onclick="nextQuestion(2)">Me identifican las 3 alternativas</button>
+                    
+                </div>
+            </div>
+            <!-- Pregunta 2 -->
+            <div class="question" data-question="2" style="display: none;">
+                <p>¿Qué actividad disfrutas más?</p>
+                <div class="options">
+                    <button onclick="nextQuestion(1)">Escribir un diario personal</button>
+                    <button onclick="nextQuestion(2)">Planificar tu futuro</button>
+                    <button onclick="nextQuestion(0)">Cocinar una nueva receta</button> <!-- Distractor -->
+                    <button onclick="nextQuestion(0)">No me identifica ninguna</button>
+                    <button onclick="nextQuestion(2)">Me identifican las 3 alternativas</button>
+                    
+                </div>
+            </div>
+            <!-- Pregunta 3 -->
+            <div class="question" data-question="3" style="display: none;">
+                <p>¿Cómo te describes mejor?</p>
+                <div class="options">
+                    <button onclick="nextQuestion(0)">Trabajador en equipo</button> <!-- Distractor -->
+                    <button onclick="nextQuestion(2)">Reflexivo</button>
+                    <button onclick="nextQuestion(3)">Auto-motivado</button>
+                    <button onclick="nextQuestion(0)">No me identifica ninguna</button>
+                    <button onclick="nextQuestion(2)">Me identifican las 3 alternativas</button>
+                    
+                </div>
+            </div>
+            <!-- Pregunta 4 -->
+            <div class="question" data-question="4" style="display: none;">
+                <p>¿Qué herramienta utilizas más?</p>
+                <div class="options">
+                    <button onclick="nextQuestion(1)">Diario personal</button>
+                    <button onclick="nextQuestion(0)">Redes sociales</button> <!-- Distractor -->
+                    <button onclick="nextQuestion(3)">Libros inspiradores</button>
+                    <button onclick="nextQuestion(0)">No me identifica ninguna</button>
+                    <button onclick="nextQuestion(2)">Me identifican las 3 alternativas</button>
+                    
+                </div>
+            </div>
+            <!-- Pregunta 5 -->
+            <div class="question" data-question="5" style="display: none;">
+                <p>¿Qué tema te interesa más?</p>
+                <div class="options">
+                    <button onclick="nextQuestion(1)">Desarrollo personal</button>
+                    <button onclick="nextQuestion(0)">Deportes</button> <!-- Distractor -->
+                    <button onclick="nextQuestion(3)">Filosofía</button>
+                    <button onclick="nextQuestion(0)">No me identifica ninguna</button>
+                    <button onclick="nextQuestion(2)">Me identifican las 3 alternativas</button>
+                    
+                </div>
+            </div>
+        </div>
+
+        <button id="finish-btn" onclick="finishTest()" style="display: none;">Terminar Test</button>
+
+        <div class="credits">
+            <p>Este test fue realizado por Rataslow.</p>
+        </div>
+    </div>
+
+    <script>
+        let currentQuestion = 1;
+        const totalQuestions = 5;
+        const scores = []; // Almacena los valores seleccionados
+
+        function nextQuestion(score) {
+            const progress = document.getElementById("progress");
+            const currentElement = document.querySelector(`.question[data-question="${currentQuestion}"]`);
+            const nextElement = document.querySelector(`.question[data-question="${currentQuestion + 1}"]`);
+
+            // Guardar el puntaje de la respuesta seleccionada
+            scores.push(score);
+
+            currentElement.style.display = "none";
+            if (nextElement) {
+                nextElement.style.display = "block";
+            }
+
+            currentQuestion++;
+            progress.style.width = `${(currentQuestion / totalQuestions) * 100}%`;
+
+            if (currentQuestion > totalQuestions) {
+                document.getElementById("finish-btn").style.display = "block";
+            }
+        }
+
+        function finishTest() {
+            const averageScore = scores.reduce((a, b) => a + b, 0) / scores.length;
+            alert(`¡Gracias por completar el test! Tu puntaje promedio es: ${averageScore.toFixed(2)}`);
+
+            // Almacenar puntaje del test intrapersonal en localStorage
+            localStorage.setItem('intrapersonal', JSON.stringify(scores));
+
+            // Redirigir al siguiente test (index-Especial.html)
+            window.location.href = "index-Naturista.html";
+        }
+    </script>
+</body>
+</html>

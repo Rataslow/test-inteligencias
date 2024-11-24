@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test de Inteligencias Múltiples - Espacial</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #38b2ac, #2c7a7b);
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            margin: 20px auto;
+            padding: 20px;
+            width: 90%;
+            max-width: 600px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .progress-bar {
+            background-color: #285e61;
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress-bar div {
+            height: 20px;
+            background-color: #4fd1c5;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .question {
+            margin: 20px 0;
+            padding: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .options button {
+            margin: 5px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #319795;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .options button:hover {
+            background-color: #2c7a7b;
+        }
+
+        #finish-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #285e61;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #finish-btn:hover {
+            background-color: #2a616e;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Test de Inteligencias Múltiples</h1>
+        <p>Este test es solo una simulación, no es real, solo es para entretención.</p>
+        <p><i>Este test fue realizado por Rataslow.</i></p>
+        <h2>Inteligencia Espacial</h2>
+        <div class="progress-bar">
+            <div id="progress"></div>
+        </div>
+
+        <div id="quiz">
+            <div class="question" data-question="1">
+                <p>¿Qué tipo de actividad disfrutas más?</p>
+                <div class="options">
+                    <button onclick="nextQuestion(3)">Construir maquetas</button>
+                    <button onclick="nextQuestion(2)">Crear diseños en computadora</button>
+                    <button onclick="nextQuestion(1)">Dibujar</button>
+                    <button onclick="nextQuestion(2)">Me identifican las 3 alternativas</button>
+                    <button onclick="nextQuestion(0)">No me identifica ninguna</button>
+                </div>
+            </div>
+            <div class="question" data-question="2" style="display: none;">
+                <p>¿Qué tipo de contenido prefieres consumir?</p>
+                <div class="options">
+                    <button onclick="nextQuestion(3)">Películas de animación</button>
+                    <button onclick="nextQuestion(2)">Planos arquitectónicos</button>
+                    <button onclick="nextQuestion(1)">Fotografías artísticas</button>
+                    <button onclick="nextQuestion(2)">Me identifican las 3 alternativas</button>
+                    <button onclick="nextQuestion(0)">No me identifica ninguna</button>
+                </div>
+            </div>
+            <div class="question" data-question="3" style="display: none;">
+                <p>¿Cómo prefieres expresar tus ideas?</p>
+                <div class="options">
+                    <button onclick="nextQuestion(3)">Construyendo modelos</button>
+                    <button onclick="nextQuestion(2)">Usando gráficos</button>
+                    <button onclick="nextQuestion(1)">Dibujando</button>
+                    <button onclick="nextQuestion(2)">Me identifican las 3 alternativas</button>
+                    <button onclick="nextQuestion(0)">No me identifica ninguna</button>
+                </div>
+            </div>
+            <div class="question" data-question="4" style="display: none;">
+                <p>¿Qué herramienta utilizas más?</p>
+                <div class="options">
+                    <button onclick="nextQuestion(3)">Impresoras 3D</button>
+                    <button onclick="nextQuestion(2)">Software de diseño</button>
+                    <button onclick="nextQuestion(1)">Lápices de dibujo</button>
+                    <button onclick="nextQuestion(2)">Me identifican las 3 alternativas</button>
+                    <button onclick="nextQuestion(0)">No me identifica ninguna</button>
+                </div>
+            </div>
+            <div class="question" data-question="5" style="display: none;">
+                <p>¿Qué profesión te parece más atractiva?</p>
+                <div class="options">
+                    <button onclick="nextQuestion(3)">Escultor</button>
+                    <button onclick="nextQuestion(2)">Diseñador gráfico</button>
+                    <button onclick="nextQuestion(1)">Arquitecto</button>
+                    <button onclick="nextQuestion(2)">Me identifican las 3 alternativas</button>
+                    <button onclick="nextQuestion(0)">No me identifica ninguna</button>
+                </div>
+            </div>
+        </div>
+
+        <button id="finish-btn" onclick="finishTest()" style="display: none;">Terminar Test</button>
+    </div>
+
+    <script>
+        let currentQuestion = 1;
+        const totalQuestions = 5;
+        const scores = [];
+
+        function nextQuestion(score) {
+            const progress = document.getElementById("progress");
+            const currentElement = document.querySelector(`.question[data-question="${currentQuestion}"]`);
+            const nextElement = document.querySelector(`.question[data-question="${currentQuestion + 1}"]`);
+
+            scores.push(score);
+
+            currentElement.style.display = "none";
+            if (nextElement) {
+                nextElement.style.display = "block";
+            }
+
+            currentQuestion++;
+            progress.style.width = `${(currentQuestion / totalQuestions) * 100}%`;
+
+            if (currentQuestion > totalQuestions) {
+                document.getElementById("finish-btn").style.display = "block";
+            }
+        }
+
+        function finishTest() {
+            const averageScore = scores.reduce((a, b) => a + b, 0) / scores.length;
+            alert(`¡Gracias por completar el test! Tu puntaje promedio es: ${averageScore.toFixed(2)}`);
+            localStorage.setItem('espacial', JSON.stringify(scores));
+            window.location.href = "index-Musical.html";
+        }
+    </script>
+</body>
+</html>

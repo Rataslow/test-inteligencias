@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test de Inteligencias Múltiples - Musical</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #6a0dad, #372049);
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            margin: 20px auto;
+            padding: 20px;
+            width: 90%;
+            max-width: 600px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .progress-bar {
+            background-color: #4b0082;
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress-bar div {
+            height: 20px;
+            background-color: #dda0dd;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .question {
+            margin: 20px 0;
+            padding: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .options button {
+            margin: 5px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #7b68ee;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .options button:hover {
+            background-color: #5d3fd3;
+        }
+
+        #finish-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #6a0dad;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #finish-btn:hover {
+            background-color: #551a8b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Test de Inteligencias Múltiples</h1>
+        <p>Este test es solo una simulación, no es real, solo es para entretención.</p>
+        <p><i>Este test fue realizado por Rataslow.</i></p>
+        <h2>Inteligencia Musical</h2>
+        <div class="progress-bar">
+            <div id="progress"></div>
+        </div>
+
+        <div id="quiz">
+            <div class="question" data-question="1">
+                <p>¿Qué prefieres hacer en tu tiempo libre?</p>
+                <div class="options">
+                    <button onclick="nextQuestion(3)">Componer canciones</button>
+                    <button onclick="nextQuestion(2)">Tocar un instrumento</button>
+                    <button onclick="nextQuestion(1)">Escuchar música</button>
+                    <button onclick="nextQuestion(2)">Me identifican las 3 alternativas</button>
+                    <button onclick="nextQuestion(0)">No me identifica ninguna</button>
+                </div>
+            </div>
+            <div class="question" data-question="2" style="display: none;">
+                <p>¿Qué tipo de sonidos disfrutas más?</p>
+                <div class="options">
+                    <button onclick="nextQuestion(3)">Música experimental</button>
+                    <button onclick="nextQuestion(2)">Melodías suaves</button>
+                    <button onclick="nextQuestion(1)">Ritmos rápidos</button>
+                    <button onclick="nextQuestion(2)">Me identifican las 3 alternativas</button>
+                    <button onclick="nextQuestion(0)">No me identifica ninguna</button>
+                </div>
+            </div>
+            <div class="question" data-question="3" style="display: none;">
+                <p>¿Qué instrumento te llama más la atención?</p>
+                <div class="options">
+                    <button onclick="nextQuestion(3)">Batería</button>
+                    <button onclick="nextQuestion(2)">Piano</button>
+                    <button onclick="nextQuestion(1)">Guitarra</button>
+                    <button onclick="nextQuestion(2)">Me identifican las 3 alternativas</button>
+                    <button onclick="nextQuestion(0)">No me identifica ninguna</button>
+                </div>
+            </div>
+            <div class="question" data-question="4" style="display: none;">
+                <p>¿Qué prefieres aprender?</p>
+                <div class="options">
+                    <button onclick="nextQuestion(3)">Mezclas de sonidos</button>
+                    <button onclick="nextQuestion(2)">Notas musicales</button>
+                    <button onclick="nextQuestion(1)">Técnicas de canto</button>
+                    <button onclick="nextQuestion(2)">Me identifican las 3 alternativas</button>
+                    <button onclick="nextQuestion(0)">No me identifica ninguna</button>
+                </div>
+            </div>
+            <div class="question" data-question="5" style="display: none;">
+                <p>¿Qué género musical prefieres?</p>
+                <div class="options">
+                    <button onclick="nextQuestion(3)">Electrónico</button>
+                    <button onclick="nextQuestion(2)">Rock</button>
+                    <button onclick="nextQuestion(1)">Clásico</button>
+                    <button onclick="nextQuestion(2)">Me identifican las 3 alternativas</button>
+                    <button onclick="nextQuestion(0)">No me identifica ninguna</button>
+                </div>
+            </div>
+        </div>
+
+        <button id="finish-btn" onclick="finishTest()" style="display: none;">Terminar Test</button>
+    </div>
+
+    <script>
+        let currentQuestion = 1;
+        const totalQuestions = 5;
+        const scores = []; // Almacena los valores seleccionados
+
+        function nextQuestion(score) {
+            const progress = document.getElementById("progress");
+            const currentElement = document.querySelector(`.question[data-question="${currentQuestion}"]`);
+            const nextElement = document.querySelector(`.question[data-question="${currentQuestion + 1}"]`);
+
+            // Guardar el puntaje de la respuesta seleccionada
+            scores.push(score);
+
+            currentElement.style.display = "none";
+            if (nextElement) {
+                nextElement.style.display = "block";
+            }
+
+            currentQuestion++;
+            progress.style.width = `${(currentQuestion / totalQuestions) * 100}%`;
+
+            if (currentQuestion > totalQuestions) {
+                document.getElementById("finish-btn").style.display = "block";
+            }
+        }
+
+        function finishTest() {
+            const averageScore = scores.reduce((a, b) => a + b, 0) / scores.length;
+            alert(`¡Gracias por completar el test! Tu puntaje promedio es: ${averageScore.toFixed(2)}`);
+
+            // Almacenar puntaje del test musical en localStorage
+            localStorage.setItem('musical', JSON.stringify(scores));
+
+            // Redirigir al siguiente test (index-Corporal.html)
+            window.location.href = "index-Corporal.html";
+        }
+    </script>
+</body>
+</html>

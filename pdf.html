@@ -1,0 +1,49 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+    function generatePDF() {
+        // Recuperar los puntajes de cada test desde localStorage
+        const musicalScore = JSON.parse(localStorage.getItem('musical')) || [];
+        const logicalMathematicalScore = JSON.parse(localStorage.getItem('logicoMatematico')) || [];
+        const intrapersonalScore = JSON.parse(localStorage.getItem('intrapersonal')) || [];
+        const interpersonalScore = JSON.parse(localStorage.getItem('interpersonal')) || [];
+        const spatialScore = JSON.parse(localStorage.getItem('espacial')) || [];
+        const bodilyKinestheticScore = JSON.parse(localStorage.getItem('corporal')) || [];
+        const naturalistScore = JSON.parse(localStorage.getItem('naturalista')) || [];
+        
+        // Recuperar el puntaje de lingüística
+        const linguisticScore = JSON.parse(localStorage.getItem('linguistica')) || [];
+
+        // Crear el documento PDF
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+
+        // Agregar título
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(22);
+        doc.text("Resultados del Test de Inteligencias Múltiples", 20, 20);
+
+        // Agregar los resultados
+        doc.setFontSize(16);
+        doc.text(`1. Inteligencia Lingüística: ${calculateAverageScore(linguisticScore)}`, 20, 30); // Agregar el resultado de lingüística
+        doc.text(`2. Inteligencia Musical: ${calculateAverageScore(musicalScore)}`, 20, 40);
+        doc.text(`3. Inteligencia Lógica-Matemática: ${calculateAverageScore(logicalMathematicalScore)}`, 20, 50);
+        doc.text(`4. Inteligencia Intrapersonal: ${calculateAverageScore(intrapersonalScore)}`, 20, 60);
+        doc.text(`5. Inteligencia Interpersonal: ${calculateAverageScore(interpersonalScore)}`, 20, 70);
+        doc.text(`6. Inteligencia Espacial: ${calculateAverageScore(spatialScore)}`, 20, 80);
+        doc.text(`7. Inteligencia Corporal: ${calculateAverageScore(bodilyKinestheticScore)}`, 20, 90);
+        doc.text(`8. Inteligencia Naturalista: ${calculateAverageScore(naturalistScore)}`, 20, 100);
+        // Agregar otros puntajes aquí...
+
+        // Guardar el PDF
+        doc.save('resultados_test_inteligencias_multiples.pdf');
+    }
+
+    function calculateAverageScore(scores) {
+        return scores.length > 0 ? (scores.reduce((a, b) => a + b, 0) / scores.length).toFixed(2) : 0;
+    }
+
+    // Función que guarda el puntaje del test lingüístico en localStorage
+    function storeLinguisticTestScores(scores) {
+        localStorage.setItem('linguistica', JSON.stringify(scores));
+    }
+</script>
